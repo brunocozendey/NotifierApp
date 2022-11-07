@@ -1,0 +1,17 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPattern": "/contas/1231234561/saldos"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "saldo.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
