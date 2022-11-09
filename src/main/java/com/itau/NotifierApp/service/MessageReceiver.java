@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageReceiver {
     private static final Logger log = LoggerFactory.getLogger(MessageReceiver.class);
-
-    //@SqsListener(value = "testQueue", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
     public void receiveMessage(String message,
                                @Header("SenderId") String senderId) {
         log.info("message received {} {}",senderId,message);

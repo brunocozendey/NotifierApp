@@ -75,17 +75,6 @@ public class Conta {
 
     public Double getSaldo() {
         return this.saldo;
-//        try {
-//            Object[] saldo = restTemplate.getForObject(uri, Object[].class);
-//
-//            //this.saldo = Double.parseDouble(contaService.getSaldo(this.id_conta.toString()));
-//            return contaService.getSaldo(this.id_conta.toString());
-//
-//        }
-//        catch (Exception e) {
-//            throw new RuntimeException("Problema ao conectar a API url:");
-//        }
-        //System.out.println(saldo.toString());
     }
 
     public void setSaldo() {

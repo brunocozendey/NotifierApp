@@ -35,29 +35,4 @@ public class HistoryApi {
             return notificacaoRepository.findAll();
         }
 
-
-    @RequestMapping(value = "/history", produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity getHistory() {
-            /*var balance = balanceService.getBalance(mpa, accountId);
-
-            if (balance == null) {
-                return ResponseEntity.notFound()
-                        .header(Constants.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .build();
-            }
-            if (mediaTypeVersionHelper.isV2(version)) {
-                LOG.info("Request using v2 headers");
-                return ResponseEntity.ok()
-                        .header(Constants.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .body(balanceV2Service.map(balance));
-            }
-            return ResponseEntity.ok()
-                    .header(Constants.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                    .body(balanceV1Service.map(balance));
-        }
-        */
-            return ResponseEntity.ok()
-                    .body("Okay");
-        }
-
 }
