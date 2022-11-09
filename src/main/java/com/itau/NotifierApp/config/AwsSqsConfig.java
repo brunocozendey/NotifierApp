@@ -1,6 +1,6 @@
 package com.itau.NotifierApp.config;
 
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.auth.*;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.itau.NotifierApp.service.AwsSqsClient;
@@ -66,5 +66,10 @@ public class AwsSqsConfig {
     @Bean
     public JmsTemplate defaultJmsTemplate() {
         return new JmsTemplate(this.connectionFactory);
+    }
+
+    private AWSCredentialsProvider getAwsCredentialProvider() {
+        AWSCredentials awsCredentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
+        return new AWSStaticCredentialsProvider(awsCredentials);
     }
 }

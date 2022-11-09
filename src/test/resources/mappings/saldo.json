@@ -7,7 +7,20 @@
       },
       "response": {
         "status": 200,
-        "bodyFileName": "saldo.json",
+        "bodyFileName": "saldo_negativo.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPattern": "/contas/123123451/saldos"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "saldo_positivo.json",
         "headers": {
           "Content-Type": "application/json"
         }

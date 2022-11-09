@@ -9,30 +9,48 @@ services:
     stdin_open: true
     tty: true
     environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'notifications'
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=notifications
+      - MYSQL_PASSWORD=root
+
 
   wiremock:
     image: wiremock/wiremock
-    container_name: wiremock
     volumes:
       - ../src/test/resources:/home/wiremock
     command: [ "--https-port","1002","--local-response-templating"]
     ports:
       - '80:8080'
       - '1002:1002'
-  aws_sqs:
+  aws-sqs:
     image: roribio16/alpine-sqs
-    container_name: aws_sqs
     volumes:
       - ../src/test/resources/sqs:/opt/custom
-    #command: sh -c "aws --endpoint-url http://localhost:9324 sqs create-queue --queue-name hello"
     ports:
       - '9324:9324'
       - '9325:9325'
+  aws-sns:
+    image: s12v/sns
+    container_name: aws-sns
+    ports:
+      - "9911:9911"
+    volumes:
+      - ../src/test/resources/sns/db.json:/etc/sns/db.json
+    depends_on:
+      - aws-sqs
+
   app:
     build: ../
+    environment:
+      - "SPRING_PROFILES_ACTIVE=test"
+      - "SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/notifications?autoReconnect=true&useSSL=false"
+      - "AWS_ACCESS_KEY=notValidKey"
+      - "AWS_SECRET_KEY=notValidSecret"
+    restart: on-failure
+    ports:
+      - "8081:8081"
     depends_on:
       - "mysql"
       - "wiremock"
-      - "aws_sqs"
+      - "aws-sqs"
+      - "aws-sns"

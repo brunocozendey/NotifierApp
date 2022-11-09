@@ -4,13 +4,17 @@ import com.itau.NotifierApp.repository.NotificacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
 public class Notificacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
     private int id;
 
     @Column(nullable = false)
@@ -26,10 +30,11 @@ public class Notificacao {
 
     }
 
-    public Notificacao(int id, Long id_conta, Date created_at, Double valor) {
-        this.id = id;
+    public Notificacao(Long id_conta, Double valor) {
+        Date data = new Date();
+
         this.id_conta = id_conta;
-        this.data = created_at;
+        this.data = data;
         this.valor =valor;
     }
 

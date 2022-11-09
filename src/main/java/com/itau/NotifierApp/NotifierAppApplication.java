@@ -1,7 +1,9 @@
 package com.itau.NotifierApp;
 
+import com.itau.NotifierApp.domain.Conta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -26,7 +28,7 @@ public class NotifierAppApplication {
 	}
 
 //	@Bean
-//	public CommandLineRunner demo(QueueMessagingTemplate queueMessagingTemplate) {
+//	public CommandLineRunner demo() {
 //		return (args) -> {
 //			// save a few customers
 //			Conta conta = new Conta();
@@ -35,7 +37,7 @@ public class NotifierAppApplication {
 //			conta.setDigito_conta(1);
 //			conta.setId_conta();
 //			log.info(conta.getId_conta().toString());
-//			conta.getSaldo();
+//			conta.setSaldo();
 //			log.info("Saldo:"+conta.getSaldo());
 //
 //			// fetch all customers
@@ -49,11 +51,11 @@ public class NotifierAppApplication {
 //			catch (Exception e){
 //				throw e;
 //			}
-//
-//			//MovimentacaoConta conta2 = this.queueMessagingTemplate.receiveAndConvert("default", MovimentacaoConta.class);
-//			//log.info(conta2.getValor_movimento().toString());
-//			//aws --endpoint-url http://localhost:9324 sqs send-message --queue-url http://localhost:9324/queue/default --message-body '{"agencia":123,"conta":123456,"digito_conta":1,"valor_movimento":200}'
-//
+
+			//MovimentacaoConta conta2 = this.queueMessagingTemplate.receiveAndConvert("default", MovimentacaoConta.class);
+			//log.info(conta2.getValor_movimento().toString());
+			//aws --endpoint-url http://localhost:9324 sqs send-message --queue-url http://localhost:9324/queue/default --message-body '{"agencia":123,"numero_conta":123456,"digito_conta":1,"valor_movimento":200}'
+
 //		};
 //	}
 

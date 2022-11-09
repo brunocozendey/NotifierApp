@@ -1,10 +1,13 @@
 package com.itau.NotifierApp.domain;
 
+import com.amazonaws.services.kms.model.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
 public class Conta {
@@ -25,11 +28,16 @@ public class Conta {
     @Column(nullable = false)
     private Double saldo;
 
-    public Conta(Long id_conta, Long agencia, Long conta, Integer digito_conta) {
-        this.id_conta = id_conta;
+
+
+    private static final Logger log = LoggerFactory.getLogger(Conta.class);
+
+    public Conta(Long agencia, Long conta, Integer digito_conta) {
         this.agencia = agencia;
         this.conta = conta;
         this.digito_conta = digito_conta;
+        setId_conta();
+        setSaldo();
     }
 
     RestTemplate restTemplate = new RestTemplate();
@@ -66,12 +74,7 @@ public class Conta {
     }
 
     public Double getSaldo() {
-        String uri = "http://localhost/contas/" + this.id_conta + "/saldos";
-        System.out.println(uri);
-
-        ApiConsumer api = restTemplate.getForObject(uri, ApiConsumer.class);
-
-        return api.getData().getSaldo();
+        return this.saldo;
 //        try {
 //            Object[] saldo = restTemplate.getForObject(uri, Object[].class);
 //
@@ -85,7 +88,19 @@ public class Conta {
         //System.out.println(saldo.toString());
     }
 
-    public void setSaldo(Double saldo) {
-        this.saldo = saldo;
+    public void setSaldo() {
+        try {
+            String uri = "http://wiremock:8080/contas/" + this.id_conta + "/saldos";
+            ApiConsumer api = restTemplate.getForObject(uri, ApiConsumer.class);
+            this.saldo = api.getData().getSaldo();
+        }
+        catch (HttpClientErrorException e) {
+            throw new NotFoundException("Conta não encontrada");
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Problema ao conectar a API url:");
+        }
+
+
     }
 }

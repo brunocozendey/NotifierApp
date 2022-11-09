@@ -9,16 +9,19 @@ cloud:
     end-point:
       uri: http://aws_sqs:9324
       queue: dlq
+    sns:
+      topic: arn:aws:sns:eu-central-1:123450000001:test-topic
+      uri: http://aws_sns:9911
 
 server:
   port: 8081
 
 api:
-  uri: http://localhost/contas/
+  uri: http://wiremock/contas/
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/notifications?useSSL=false
+    url: jdbc:mysql://mysql:3306/notifications?useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
