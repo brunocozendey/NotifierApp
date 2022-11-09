@@ -1,0 +1,33 @@
+cloud:
+  aws:
+    region:
+      static: eu-central-1
+      auto: false
+    credentials:
+      access-key: notValidKey
+      secret-key: notValidSecret
+    end-point:
+      uri: http://localhost:9324
+      queue: dlq
+    sns:
+      topic: arn:aws:sns:eu-central-1:123450000001:test-topic
+      uri: http://localhost:9911
+
+server:
+  port: 8081
+
+api:
+  uri: http://localhost/contas/
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/notifications?useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto:update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
